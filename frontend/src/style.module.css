@@ -1,0 +1,35 @@
+.blog {
+  padding-top: 10px;
+  padding-left: 2px;
+  border: solid;
+  border-width: 1px;
+  margin-bottom: 5px;
+}
+
+.blog ul {
+  list-style-type: none;
+  padding-left: 0.5em;
+  margin-top: 0.2em;
+}
+
+.title li {
+  display: inline-block;
+  margin-right: 0.3em;
+}
+
+.title li:nth-child(2) {
+  color: grey;
+  font-style: italic;
+}
+
+.btnRemove {
+  background-color: #008cba;
+  border-radius: 5px;
+  border: 1px solid black;
+  aspect-ratio: 4/1;
+}
+
+.open {
+  transition: height 200ms ease-out;
+  overflow: hidden;
+}
