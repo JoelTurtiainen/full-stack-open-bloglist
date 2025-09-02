@@ -21,7 +21,7 @@ const totalLikes = (array) => {
 }
 
 const favoriteBlog = (array) => {
-  return largestInArrayOfObjects(array, "likes")
+  return largestInArrayOfObjects(array, 'likes')
 }
 
 const mostBlogs = (array) => {
@@ -34,7 +34,7 @@ const mostBlogs = (array) => {
       : [...previous, { author: current.author, blogs: 1 }]
   }, [])
 
-  return largestInArrayOfObjects(blogs, "blogs")
+  return largestInArrayOfObjects(blogs, 'blogs')
 }
 
 const mostLikes = (array) => {
@@ -47,7 +47,7 @@ const mostLikes = (array) => {
       : [...previous, { author: current.author, likes: current.likes }]
   }, [])
 
-  return largestInArrayOfObjects(blogs, "likes")
+  return largestInArrayOfObjects(blogs, 'likes')
 }
 
 module.exports = {

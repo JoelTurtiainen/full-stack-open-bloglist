@@ -1,12 +1,12 @@
-const info = (...params) => {
+const info = (...parameters) => {
   if (process.env.NODE_ENV !== 'test') {
-    console.log(...params)
+    console.log(...parameters)
   }
 }
 
-const error = (...params) => {
+const error = (...parameters) => {
   if (process.env.NODE_ENV !== 'test') {
-    console.error(...params)
+    console.error(...parameters)
   }
 }
 

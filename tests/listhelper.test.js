@@ -12,7 +12,7 @@ test('dummy returns one', () => {
 
 describe('total likes', () => {
   const blogs = initialBlogs
-  const listWithOneBlog = [blogs[0]];
+  const listWithOneBlog = [blogs[0]]
 
   test('of empty list is zero', () => {
     const result = listHelper.totalLikes([])

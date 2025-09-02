@@ -21,7 +21,7 @@ const tokenExtractor = (request, _response, next) => {
 const userExtractor = async (request, _response, next) => {
   if (request.token) {
     const jwtToken = jwt.verify(request.token, process.env.SECRET)
-    request.user = await User.findOne({ _id: jwtToken.id.toString() });
+    request.user = await User.findOne({ _id: jwtToken.id.toString() })
   }
   next()
 }

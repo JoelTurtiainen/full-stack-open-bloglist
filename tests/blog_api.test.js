@@ -12,7 +12,7 @@ const helper = require('../tests/test_helper')
 const User = require('../models/user')
 const Blog = require('../models/blog')
 
-let TOKEN;
+let TOKEN
 
 beforeEach(async () => {
   await Blog.deleteMany({})
@@ -24,12 +24,14 @@ beforeEach(async () => {
 
   await user.save()
 
-  TOKEN = (await api
-    .post('/api/login')
-    .send({ username: 'root', password: 'sekret' })
-    .expect('Content-Type', /application\/json/)).body.token
+  TOKEN = (
+    await api
+      .post('/api/login')
+      .send({ username: 'root', password: 'sekret' })
+      .expect('Content-Type', /application\/json/)
+  ).body.token
 
-  const initialBlogs = helper.initialBlogs.map(blog => ({ ...blog, user }))
+  const initialBlogs = helper.initialBlogs.map((blog) => ({ ...blog, user }))
   await Blog.insertMany(initialBlogs)
 })
 
@@ -47,8 +49,8 @@ test('there are two blogs', async () => {
 
 test('returned blogs contain id', async () => {
   const response = await api.get('/api/blogs')
-  const blog = response.body.find(blog => !blog.id);
-  assert(blog == undefined)
+  const blog = response.body.find((blog) => !blog.id)
+  assert(blog === undefined)
 })
 
 test('setting default likes on missing blog', async () => {
@@ -59,12 +61,12 @@ test('setting default likes on missing blog', async () => {
     title: 'Pineapple Pizza',
     author: 'Pizzaman456',
     url: 'pizzaman456reviews.com',
-    userId: user.id
+    userId: user.id,
   }
 
   const response = await api
     .post('/api/blogs')
-    .set({ 'Authorization': 'Bearer ' + TOKEN })
+    .set({ Authorization: 'Bearer ' + TOKEN })
     .send(blogWithNolikes)
     .expect(201)
 
@@ -75,13 +77,10 @@ test('rejecting blog with no title & url', async () => {
   const blogsAtStart = await helper.blogsInDb()
   const invalidBlog = {
     author: 'Pizzaman456',
-    likes: 0
+    likes: 0,
   }
 
-  await api
-    .post('/api/blogs')
-    .send(invalidBlog)
-    .expect(400)
+  await api.post('/api/blogs').send(invalidBlog).expect(400)
 
   const blogsAtEnd = await helper.blogsInDb()
   assert.strictEqual(blogsAtEnd.length, blogsAtStart.length)
@@ -93,7 +92,7 @@ test('deleting a blog works', async () => {
 
   await api
     .delete(`/api/blogs/${blogToDelete.id}`)
-    .set({ 'Authorization': 'Bearer ' + TOKEN })
+    .set({ Authorization: 'Bearer ' + TOKEN })
     .expect(204)
 
   const blogsAtEnd = await helper.blogsInDb()
@@ -106,12 +105,10 @@ test('updating blog works', async () => {
 
   const updatedBlog = {
     ...blogToUpdate,
-    likes: 10
+    likes: 10,
   }
 
-  await api
-    .put(`/api/blogs/${blogToUpdate.id}`)
-    .send(updatedBlog)
+  await api.put(`/api/blogs/${blogToUpdate.id}`).send(updatedBlog)
 
   const blogsAtEnd = await helper.blogsInDb()
 
@@ -137,11 +134,10 @@ describe('when there is initially one user at db', () => {
     const usersAtEnd = await helper.usersInDb()
     assert.strictEqual(usersAtEnd.length, usersAtStart.length + 1)
 
-    const usernames = usersAtEnd.map(u => u.username)
+    const usernames = usersAtEnd.map((u) => u.username)
     assert(usernames.includes(newUser.username))
   })
   describe('creation fails with proper statuscode and message if:', () => {
-
     test('username already taken', async () => {
       const usersAtStart = await helper.usersInDb()
 
@@ -202,7 +198,11 @@ describe('when there is initially one user at db', () => {
 
       const usersAtEnd = await helper.usersInDb()
 
-      assert(result.body.error.includes(`Path \`username\` (\`${newUser.username}\`) is shorter than the minimum allowed length`))
+      assert(
+        result.body.error.includes(
+          `Path \`username\` (\`${newUser.username}\`) is shorter than the minimum allowed length`,
+        ),
+      )
 
       assert.strictEqual(usersAtEnd.length, usersAtStart.length)
     })
@@ -216,10 +216,7 @@ describe('when there is initially one user at db', () => {
         password: '12',
       }
 
-      await api
-        .post('/api/users')
-        .send(newUser)
-        .expect(400)
+      await api.post('/api/users').send(newUser).expect(400)
 
       const usersAtEnd = await helper.usersInDb()
 
