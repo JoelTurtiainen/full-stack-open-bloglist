@@ -1,35 +1,24 @@
 {
-  "name": "blogilista",
-  "version": "0.0.1",
-  "main": "index.js",
-  "type": "module",
-  "scripts": {
-    "start": "cross-env NODE_ENV=production node index.js",
-    "dev": "cross-env NODE_ENV=development nodemon index.js",
-    "test": "cross-env NODE_ENV=test node --test",
-    "start:test": "cross-env NODE_ENV=test node index.js",
-    "eslint": "eslint --ext js --report-unused-disable-directives --max-warnings 0",
-    "eslint:fix": "eslint --fix"
-  },
-  "keywords": [
-    "blogilista"
-  ],
+  "name": "@JoelTurtiainen/bloglist",
   "author": "Joel Turtiainen",
-  "license": "ISC",
-  "description": "",
-  "dependencies": {
-    "bcrypt": "^5.1.1",
-    "cors": "^2.8.5",
-    "dotenv": "^16.4.7",
-    "express": "^4.21.2",
-    "express-async-errors": "^3.1.1",
-    "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.9.0"
+  "private": true,
+  "version": "0.1.0",
+  "main": "index.js",
+  "scripts": {
+    "back:dev": "npm run dev --prefix back",
+    "front:dev": "npm run dev --prefix front",
+    "back:start": "npm run start --prefix back",
+    "front:start": "npm run serve --prefix front",
+    "dev": "concurrently --names 'BACK,FRONT' -c 'yellow,blue' 'npm run back:dev' 'npm run front:dev'",
+    "start": "concurrently --names 'BACK,FRONT' -c 'yellow,blue' 'npm run back:start' 'npm run front:start'",
+    "build": "npm run build --prefix front",
+    "lint": "npm run lint -ws"
   },
+  "workspaces": [
+    "back",
+    "front"
+  ],
   "devDependencies": {
-    "cross-env": "^7.0.3",
-    "eslint-config-prettier": "^10.1.8",
-    "nodemon": "^3.1.9",
-    "supertest": "^7.0.0"
+    "concurrently": "^9.2.1"
   }
 }
