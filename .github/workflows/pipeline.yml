@@ -41,10 +41,15 @@ jobs:
         api_key: ${{ secrets.RENDER_API_KEY }}
 
     - name: call-workflow-static
-      if: env.SKIP == 'false'
-      uses: ./.github/workflows/static.yml
-      with: 
-        secrets: inherit
+
+  pages_deploy:
+    uses: ./.github/workflows/static.yml
+    permissions:   
+      contents: read
+      pages: write
+      id-token: write
+    secrets:
+      token: ${{ secrets.GITHUB_TOKEN }}
 
   tag_release:
     needs: [deploy]
