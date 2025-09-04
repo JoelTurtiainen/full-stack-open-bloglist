@@ -12,7 +12,8 @@
     "dev": "concurrently --names 'BACK,FRONT' -c 'yellow,blue' 'npm run back:dev' 'npm run front:dev'",
     "start": "concurrently --names 'BACK,FRONT' -c 'yellow,blue' 'npm run back:start' 'npm run front:start'",
     "build": "npm run build --prefix front",
-    "lint": "npm run lint -ws"
+    "lint": "npm run lint -ws",
+    "test": "npm run test -ws"
   },
   "workspaces": [
     "back",
