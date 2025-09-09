@@ -4,11 +4,11 @@ import { test, expect, beforeEach, describe } from 'vitest'
 import BlogForm from './BlogForm'
 
 describe('<BlogForm />', () => {
-  let createBlog, blog, container
+  let createBlog
 
   beforeEach(() => {
     createBlog = vi.fn()
-    container = render(<BlogForm createBlog={createBlog} />).container
+    render(<BlogForm createBlog={createBlog} />).container
   })
 
   test('calling callback function with correct form values', async () => {

@@ -1,13 +1,14 @@
-const dummy = (blogs) => {
+const dummy = () => {
   return 1
 }
 
 const largestInArrayOfObjects = (array, key, initial = 0) => {
-  return array.reduce((previous, current) => {
-    return current[key] > previous[key]
-      ? current
-      : previous
-  }, { [key]: initial })
+  return array.reduce(
+    (previous, current) => {
+      return current[key] > previous[key] ? current : previous
+    },
+    { [key]: initial }
+  )
 }
 
 const totalLikes = (array) => {
@@ -15,9 +16,7 @@ const totalLikes = (array) => {
     return sum + item.likes
   }
 
-  return array.length === 0
-    ? 0
-    : array.reduce(reducer, 0)
+  return array.length === 0 ? 0 : array.reduce(reducer, 0)
 }
 
 const favoriteBlog = (array) => {
@@ -26,8 +25,8 @@ const favoriteBlog = (array) => {
 
 const mostBlogs = (array) => {
   const blogs = array.reduce((previous, current) => {
-    const found = previous.find(o => o.author === current.author)
-    const filtered = previous.filter(o => o.author !== current.author)
+    const found = previous.find((o) => o.author === current.author)
+    const filtered = previous.filter((o) => o.author !== current.author)
 
     return found
       ? [...filtered, { ...found, blogs: found.blogs + 1 }]
@@ -39,8 +38,8 @@ const mostBlogs = (array) => {
 
 const mostLikes = (array) => {
   const blogs = array.reduce((previous, current) => {
-    const found = previous.find(o => o.author === current.author)
-    const filtered = previous.filter(o => o.author !== current.author)
+    const found = previous.find((o) => o.author === current.author)
+    const filtered = previous.filter((o) => o.author !== current.author)
 
     return found
       ? [...filtered, { ...found, likes: found.likes + current.likes }]
@@ -55,5 +54,5 @@ module.exports = {
   totalLikes,
   favoriteBlog,
   mostBlogs,
-  mostLikes
+  mostLikes,
 }

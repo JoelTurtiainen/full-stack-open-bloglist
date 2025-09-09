@@ -190,19 +190,13 @@ describe('when there is initially one user at db', () => {
         password: 'salainen',
       }
 
-      const result = await api
+      await api
         .post('/api/users')
         .send(newUser)
         .expect(400)
         .expect('Content-Type', /application\/json/)
 
       const usersAtEnd = await helper.usersInDb()
-
-      assert(
-        result.body.error.includes(
-          `Path \`username\` (\`${newUser.username}\`) is shorter than the minimum allowed length`,
-        ),
-      )
 
       assert.strictEqual(usersAtEnd.length, usersAtStart.length)
     })

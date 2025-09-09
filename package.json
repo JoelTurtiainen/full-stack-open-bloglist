@@ -1,25 +1,48 @@
 {
-  "name": "@JoelTurtiainen/bloglist",
-  "author": "Joel Turtiainen",
-  "private": true,
-  "version": "0.1.0",
+  "name": "bloglist-backend",
+  "version": "0.0.1",
   "main": "index.js",
+  "private": true,
   "scripts": {
-    "back:dev": "npm run dev --prefix back",
-    "front:dev": "npm run dev --prefix front",
-    "back:start": "npm run start --prefix back",
-    "front:start": "npm run serve --prefix front",
-    "dev": "concurrently --names 'BACK,FRONT' -c 'yellow,blue' 'npm run back:dev' 'npm run front:dev'",
-    "start": "concurrently --names 'BACK,FRONT' -c 'yellow,blue' 'npm run back:start' 'npm run front:start'",
-    "build": "npm run build --prefix front",
-    "lint": "npm run lint -ws",
-    "test": "npm run test -ws"
+    "start": "cross-env NODE_ENV=production node index.js",
+    "start:test": "cross-env NODE_ENV=test node index.js",
+    "dev": "cross-env NODE_ENV=development nodemon index.js",
+    "build": "cd front && npm run build",
+    "test:front": "cd front && npm run test",
+    "test:back": "cross-env NODE_ENV=test node --test",
+    "test": "npm run test:front && npm run test:back",
+    "lint": "eslint . --report-unused-disable-directives --max-warnings 0"
   },
-  "workspaces": [
-    "back",
-    "front"
+  "keywords": [
+    "blogilista"
   ],
+  "workspaces": [
+    "front/"
+  ],
+  "author": "Joel Turtiainen",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-async-errors": "^3.1.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.9.0",
+    "vitest": "^3.2.4"
+  },
   "devDependencies": {
-    "concurrently": "^9.2.1"
+    "@eslint/js": "^9.35.0",
+    "cross-env": "^7.0.3",
+    "eslint": "^9.35.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.20",
+    "eslint-plugin-vitest-globals": "^1.5.0",
+    "globals": "^16.3.0",
+    "nodemon": "^3.1.9",
+    "supertest": "^7.0.0"
   }
 }

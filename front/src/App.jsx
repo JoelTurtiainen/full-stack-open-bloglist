@@ -13,9 +13,8 @@ const App = () => {
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user') || null))
 
-
   useEffect(() => {
-    blogService.getAll().then(blogs => setBlogs(blogs))
+    blogService.getAll().then((blogs) => setBlogs(blogs))
   }, [])
 
   useEffect(() => {
@@ -30,7 +29,7 @@ const App = () => {
       setUser(user) // Save user to localstorage
       setUsername('')
       setPassword('')
-    } catch (exception) {
+    } catch {
       setMessage({ text: 'wrong username or password', error: true })
     }
 
@@ -45,7 +44,6 @@ const App = () => {
       setBlogs(blogs.concat({ ...returnedBlog, user }))
       blogFormRef.current.toggleVisibility()
       setMessage({ text: `a new Blog ${returnedBlog.title} by ${returnedBlog.author} added` })
-
     } catch ({ status }) {
       if (status === 401) {
         setMessage({ text: 'Token Expired', error: true })
@@ -66,10 +64,10 @@ const App = () => {
     try {
       const response = await blogService.update(blogObject, user)
       console.log(response.id)
-      setBlogs(blogs.map((blog) => blog.id !== response.id ? blog : { ...response, user }))
+      setBlogs(blogs.map((blog) => (blog.id !== response.id ? blog : { ...response, user })))
       console.log(blogs)
-    } catch (exception) {
-      console.log(exception)
+    } catch (e) {
+      console.log(e)
     }
   }
 
@@ -78,7 +76,7 @@ const App = () => {
 
     try {
       await blogService.remove(blogObject.id, user)
-      setBlogs(blogs.filter(blog => blog !== blogObject))
+      setBlogs(blogs.filter((blog) => blog !== blogObject))
       setMessage({ text: `Removed blog ${blogObject.title} by ${blogObject.author}` })
     } catch ({ status }) {
       if (status === 401 && user.username === blogObject.user.username) {
@@ -100,13 +98,13 @@ const App = () => {
   if (user === null) {
     return (
       <div>
-        < Notification message={message} />
+        <Notification message={message} />
         <h2>Log in to application</h2>
         <form onSubmit={handleLogin}>
           <div>
             username
             <input
-              data-testid='username'
+              data-testid="username"
               type="text"
               value={username}
               aria-label="Username"
@@ -116,7 +114,7 @@ const App = () => {
           <div>
             password
             <input
-              data-testid='password'
+              data-testid="password"
               type="password"
               value={password}
               aria-label="Password"
@@ -132,14 +130,16 @@ const App = () => {
   return (
     <div>
       <h2>blogs</h2>
-      < Notification message={message} />
-      <p>{user.name} logged in <button onClick={() => setUser(null)}>logout</button></p>
+      <Notification message={message} />
+      <p>
+        {user.name} logged in <button onClick={() => setUser(null)}>logout</button>
+      </p>
       <Togglable buttonLabel="create new blog" ref={blogFormRef}>
         <BlogForm createBlog={addBlog} />
       </Togglable>
       {blogs
         .sort((a, b) => b.likes - a.likes)
-        .map((blog) =>
+        .map((blog) => (
           <Blog
             updateBlog={updateBlog}
             removeBlog={removeBlog}
@@ -147,8 +147,7 @@ const App = () => {
             key={blog.id}
             blog={blog}
           />
-        )
-      }
+        ))}
     </div>
   )
 }

@@ -21,13 +21,27 @@ const Blog = ({ blog, updateBlog, removeBlog, isOwner }) => {
       <ul className={styles.title}>
         <li>{blog.title}</li>
         <li>{blog.author}</li>
-        <li><button onClick={toggleVisibility}>{buttonText}</button></li>
+        <li>
+          <button onClick={toggleVisibility}>{buttonText}</button>
+        </li>
       </ul>
-      <ul style={showWhenVisible} >
-        <li><a href={blog.url}>{blog.url}</a></li>
-        <li>likes {blog.likes} <button onClick={addLike}>like</button></li>
+      <ul style={showWhenVisible}>
+        <li>
+          <a href={blog.url}>{blog.url}</a>
+        </li>
+        <li>
+          likes {blog.likes} <button onClick={addLike}>like</button>
+        </li>
         <li>{blog.user.name}</li>
-        {isOwner ? <li><button onClick={() => removeBlog(blog)} className={styles.btnRemove}>remove</button></li> : ''}
+        {isOwner ? (
+          <li>
+            <button onClick={() => removeBlog(blog)} className={styles.btnRemove}>
+              remove
+            </button>
+          </li>
+        ) : (
+          ''
+        )}
       </ul>
     </div>
   )
@@ -37,7 +51,7 @@ Blog.propTypes = {
   blog: PropTypes.object.isRequired,
   updateBlog: PropTypes.func,
   removeBlog: PropTypes.func,
-  isOwner: PropTypes.bool
+  isOwner: PropTypes.bool,
 }
 
 export default Blog
