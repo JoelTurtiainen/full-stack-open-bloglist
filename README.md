@@ -1,5 +1,5 @@
 # full-stack-open-bloglist
-Assignment for [fullstackopen.com](https://fullstackopen.com/en/part11/expanding_further#exercises-11-19-11-21) part 11, task 19 - 21
+Assignment for [fullstackopen.com](https://fullstackopen.com/en/part11/expanding_further#exercises-11-19-11-21) part 11, task 20
 
 Use following to create a new user: 
 ```sh
