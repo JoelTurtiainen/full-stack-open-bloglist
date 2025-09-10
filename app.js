@@ -15,15 +15,17 @@ const mongoose = require('mongoose')
 mongoose.set('strictQuery', false)
 
 logger.info('connecting to', config.MONGODB_URI)
-
-mongoose
-  .connect(config.MONGODB_URI)
-  .then(() => {
+;(async () => {
+  try {
+    await mongoose.connect(config.MONGODB_URI, {
+      serverSelectionTimeoutMS: 10000, // 10 seconds
+      socketTimeoutMS: 45000, // Close idle sockets after 45 seconds
+    })
     logger.info('connected to MongoDB')
-  })
-  .catch((error) => {
-    logger.error('error connection to MongoDB:', error.message)
-  })
+  } catch (e) {
+    logger.error('error connecting to MongoDB', e.message)
+  }
+})()
 
 app.use(cors())
 app.use(express.static('front/dist'))
